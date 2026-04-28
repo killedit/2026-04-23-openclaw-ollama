@@ -25,27 +25,46 @@ docker exec -it openclaw bash
 openclaw onboard
 ```
 
-I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?</br>
->Yes</br>
-Setup mode</br>
->QuickStart</br>
-Config handling</br>
->Update values</br>
-Model/auth provider</br>
->Ollama</br>
-Ollama mode</br>
->Local only</br>
-Ollama base URL</br>
->http://ollama:11434</br>
-Default model</br>
->ollama/qwen3.5:2b</br>
-Websearch</br>
->Gemini</br>
->{optionally your API key if you need websearch}</br>
-How do you want to hatch your bot?</br>
->Hatch in Terminal (recommended)</br>
+I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
+
+*Yes*
+
+Setup mode
+
+*QuickStart*
+
+Config handling
+
+*Update values*
+
+Model/auth provider
+
+*Ollama*
+
+Ollama mode
+
+*Local only*
+
+Ollama base URL
+
+*http://ollama:11434*
+
+Default model
+
+*>ollama/qwen3.5:2b*
+
+Websearch
+
+*Gemini*
+*{optionally your API key if you need websearch}*
+
+How do you want to hatch your bot?
+
+*Hatch in Terminal (recommended)*
+
 
 Get your Gateway Token:
+
 ```bash
 docker exec openclaw cat /root/.openclaw/openclaw.json | grep "token"
 ```
@@ -55,10 +74,6 @@ Paste it at OpenClaw welcome page:
 Openclaw | http://localhost:18789
 --- | ---
 Ollama Health Check | http://localhost:11434
-
-
-Then click:
-</br><button style="background:#ff2c2c;color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;">Connect</button>
 
 Monitor docker logs and the used resources:
 
