@@ -1,0 +1,43 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_CONTEXT_LENGTH=262144
+    restart: unless-stopped
+
+  openclaw:
+    build: .
+    container_name: openclaw
+    depends_on:
+      - ollama
+    command: [
+      "openclaw", "gateway", "run",
+      "--bind", "lan",
+      "--allow-unconfigured",
+      "--port", "18789"
+    ]
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_API_KEY=ollama-local
+      - OLLAMA_MODEL=qwen3.5:2b
+      - OLLAMA_CONTEXT_LENGTH=40960
+      - OLLAMA_TIMEOUT_SECONDS=900
+      - OPENCLAW_LLM_IDLE_TIMEOUT=600
+      - OPENCLAW_GATEWAY_PORT=18789
+      - OPENCLAW_GATEWAY_MODE=local
+      - OPENCLAW_SETUP_COMPLETED=true
+      - OPENCLAW_CONTROL_UI_ALLOW_INSECURE_AUTH=true
+    ports:
+      - "18789:18789"
+    volumes:
+      - openclaw_data:/root/.openclaw
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  openclaw_data:
