@@ -25,45 +25,17 @@ docker exec -it openclaw bash
 openclaw onboard
 ```
 
-I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
+I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue? - Yes  
+Setup mode - QuickStart  
+Config handling - Update values  
+Model/auth provider - Ollama  
+Ollama mode - Local only  
+Ollama base URL - http://ollama:11434  
+Default model - ollama/qwen3.5:2b  
+Websearch - Gemini {optionally your API key if you need websearch}  
+How do you want to hatch your bot? - Hatch in Terminal (recommended)  
 
-*Yes*
-
-Setup mode
-
-*QuickStart*
-
-Config handling
-
-*Update values*
-
-Model/auth provider
-
-*Ollama*
-
-Ollama mode
-
-*Local only*
-
-Ollama base URL
-
-*http://ollama:11434*
-
-Default model
-
-*>ollama/qwen3.5:2b*
-
-Websearch
-
-*Gemini*
-*{optionally your API key if you need websearch}*
-
-How do you want to hatch your bot?
-
-*Hatch in Terminal (recommended)*
-
-
-Get your Gateway Token:
+Get your Gateway Token: 
 
 ```bash
 docker exec openclaw cat /root/.openclaw/openclaw.json | grep "token"
