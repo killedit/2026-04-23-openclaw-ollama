@@ -6,11 +6,21 @@ services:
       - ollama_data:/root/.ollama
     ports:
       - "11434:11434"
+    devices:
+      - "/dev/dri:/dev/dri"
     environment:
       - OLLAMA_CONTEXT_LENGTH=262144
+      - OLLAMA_GPU=all
+      - OLLAMA_MAX_LOADED_MODELS=1
+    deploy:
+      resources:
+        limits:
+          cpus: "8"
+          memory: 24G
     restart: unless-stopped
 
   openclaw:
+    # network_mode: host # running ollama on the host
     build: .
     container_name: openclaw
     depends_on:
@@ -22,12 +32,17 @@ services:
       "--port", "18789"
     ]
     environment:
-      - OLLAMA_HOST=http://ollama:11434
-      - OLLAMA_API_KEY=ollama-local
-      - OLLAMA_MODEL=qwen3.5:2b
+      - OLLAMA_HOST=http://ollama:11434 # running ollama in another container
+      # - OLLMA_HOST=http://localhost:11434 # running ollama on the host, official ollama/ollama image foesn't have full Intel GPU acceleation support 
+      # - OLLAMA_API_KEY=ollama-local
+      - OLLAMA_CONTEXT_LENGTH=262144
+      - OLLAMA_MODEL=deepseek-r1:1.5b
       - OLLAMA_CONTEXT_LENGTH=40960
       - OLLAMA_TIMEOUT_SECONDS=900
-      - OPENCLAW_LLM_IDLE_TIMEOUT=600
+      - OPENCLAW_LLM_IDLE_TIMEOUT=1800
+      - OPENCLAW_LLM_MAX_TIMEOUT=1800
+      - OPENCLAW_LLM_FIRST_TOKEN_TIMEOUT=600
+      - OPENCLAW_LLM_TIMEOUT=1800
       - OPENCLAW_GATEWAY_PORT=18789
       - OPENCLAW_GATEWAY_MODE=local
       - OPENCLAW_SETUP_COMPLETED=true
@@ -36,6 +51,14 @@ services:
       - "18789:18789"
     volumes:
       - openclaw_data:/root/.openclaw
+      - ./workspace:/root/.openclaw/workspace
+      - ./skills:/root/.openclaw/skills
+      - ./secrets:/app/secrets
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 6G
     restart: unless-stopped
 
 volumes:
