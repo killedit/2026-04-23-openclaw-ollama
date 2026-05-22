@@ -29,6 +29,7 @@ services:
       "openclaw", "gateway", "run",
       "--bind", "lan",
       "--allow-unconfigured",
+      "--auth", "token",
       "--port", "18789"
     ]
     environment:

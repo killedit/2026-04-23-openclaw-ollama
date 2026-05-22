@@ -103,8 +103,16 @@ ollama run {model} ""
 
 <!--
 
-Ask AI agent:
 
+ollama/qwen3:1.7b
+
+docker exec openclaw openclaw config set models.providers.ollama.timeoutSeconds 1800
+docker compose restart openclaw
+docker exec openclaw openclaw devices list
+
+
+
+Ask AI agent:
 > BTC-Sentinel, your workspace is ready. Perform a system check: 1) Read STRATEGIST and RISK_MANAGER. 2) Check if you can access the get_btc_price skill. 3) Report status.  
 
 -->
